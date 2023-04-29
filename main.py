@@ -5,6 +5,7 @@ from Parser import Parser
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTextEdit, QDockWidget, QMenu, QMenuBar, QAction, QFileDialog, QVBoxLayout, QWidget, QPlainTextEdit, QLabel, QTableWidget, QTableWidgetItem
 from PyQt5.QtGui import QFont
 
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -80,7 +81,6 @@ class MainWindow(QMainWindow):
         self.setMenuBar(self.menu_bar)
 
         # Conectar acciones a funciones
-        self.action_ver_tokens.triggered.connect(self.show_tokens)
         self.action_abrir.triggered.connect(self.open_file)
         self.action_guardar.triggered.connect(self.save_file)
         self.action_guardar_como.triggered.connect(self.save_file_as)
@@ -123,7 +123,7 @@ class MainWindow(QMainWindow):
                 file.write(self.code_editor.toPlainText())
 
     def analyze_code(self):
-        input_str = self.code_editor.toPlainText().replace('"', "'")
+        input_str = self.code_editor.toPlainText()
         scanner = Scanner(input_str)  # Crear una instancia de Scanner
         tokens = scanner.tokenize()  # Obtener los tokens
         parser = Parser(tokens)  # Crear una instancia del analizador con los tokens
@@ -156,7 +156,6 @@ class MainWindow(QMainWindow):
                         mongodb_statements.append(f"db.{stmt[1]}.findOne()")
 
                 self.sentences_viewer.setPlainText("\n".join(mongodb_statements))
-                
             else:
                 self.sentences_viewer.setPlainText('')
 
@@ -164,7 +163,6 @@ class MainWindow(QMainWindow):
             self.show_tokens(parser.tokens)
         except Exception as e:
             # Manejar errores en el análisis y mostrarlos en la tabla de errores
-            print("Entrada:", self.code_editor.toPlainText())  # Agrega esta línea para ver la entrada actual
             self.update_error_table(f"Error inesperado: {str(e)}")
 
     def update_error_table(self, error_msg):
@@ -176,19 +174,19 @@ class MainWindow(QMainWindow):
         self.errors_table.setItem(0, 4, QTableWidgetItem(error_msg))
 
     def show_tokens(self):
-            scanner = Scanner(self.code_editor.toPlainText())
-            tokens = scanner.tokenize()
-            print("Tokens:", tokens)  # Imprime la variable tokens aquí para ver su valor
-            
-            if isinstance(tokens, list):
-                self.tokens_table.setRowCount(len(tokens))
-                for i, token in enumerate(tokens):
-                    self.tokens_table.setItem(i, 0, QTableWidgetItem(str(i + 1)))
-                    self.tokens_table.setItem(i, 1, QTableWidgetItem(token[0]))
-                    self.tokens_table.setItem(i, 2, QTableWidgetItem(str(token[2])))
-                    self.tokens_table.setItem(i, 3, QTableWidgetItem(token[1]))
-            else:
-                print("Error: tokens no es una lista")
+        scanner = Scanner(self.code_editor.toPlainText())
+        tokens = scanner.tokenize()
+        print("Tokens:", tokens)  # Imprime la variable tokens aquí para ver su valor
+        
+        if isinstance(tokens, list):
+            self.tokens_table.setRowCount(len(tokens))
+            for i, token in enumerate(tokens):
+                self.tokens_table.setItem(i, 0, QTableWidgetItem(str(i + 1)))
+                self.tokens_table.setItem(i, 1, QTableWidgetItem(token[0]))
+                self.tokens_table.setItem(i, 2, QTableWidgetItem(str(token[2])))
+                self.tokens_table.setItem(i, 3, QTableWidgetItem(token[1]))
+        else:
+            print("Error: tokens no es una lista")
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
