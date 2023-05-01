@@ -1,5 +1,5 @@
-# Universidad San Carlos de Guatemala
-## Manual Tecnico
+# Universidad San Carlos de Guatemala               30/04/2023
+## Manual de Usuario
 
 
 Lenguajes Formales y de Programacion
