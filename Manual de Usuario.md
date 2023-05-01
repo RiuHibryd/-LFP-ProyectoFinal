@@ -49,7 +49,12 @@ Teniendo un resultado tal como se puede apreciar en la imagen de referencia
 ## Errores
 
 De haber algun error este sera visible en el apartado de Errores, esto se genera de haber algo mal con la sentencia del texto
+![image](https://user-images.githubusercontent.com/98990317/235395434-41e5a06f-dd6e-434a-8cb2-fd9a639fdcd3.png)
+
 
 ## Tabla Tokens
 
 Al darle click en el apartado Ver se abrirla la opcion de poder generar la tabla de Tokens la cual procedera a recorrer el texto y a desplegar en la pestaña Tokens los tokens generados por susodicho documento
+
+![image](https://user-images.githubusercontent.com/98990317/235395605-de123af6-720e-42ab-8444-ebf583098ff8.png)
+
